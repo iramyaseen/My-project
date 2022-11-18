@@ -1,14 +1,12 @@
-import { BarComponents } from "./Components/BarComponents";
-import { FooterComponent } from "./Components/FooterComponent";
-import { TimerComponent } from "./Components/TimerComponent";
-
+import { Route, Routes } from "react-router-dom";
+import { TimerMainPage } from "./Pages/TimerMainPage";
+import { ListTaskPage } from "./Pages/ListTaskPage";
 function App() {
   return (
-    <div className="container" id="header">
-      <BarComponents />
-      <TimerComponent />
-      <FooterComponent />
-    </div>
+    <Routes>
+      <Route path="/" element={<TimerMainPage />} />
+      <Route path="/listBar" element={<ListTaskPage />} />
+    </Routes>
   );
 }
 
