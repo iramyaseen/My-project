@@ -5,6 +5,7 @@ import { FaPlayCircle } from "react-icons/fa";
 import { FooterComponent } from "../Components/FooterComponent";
 import { ComponentsSilder } from "../Components/ComponentsSlider";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { NavLink } from "react-router-dom";
 // import { BsCheckCircle } from "react-icons/bs";
 export const ListTaskPage = () => {
   return (
@@ -59,10 +60,12 @@ export const ListTaskPage = () => {
           icon={<AiOutlineCloseCircle className="close_icon change_color" />}
         />
         <div style={{ marginTop: "25px", marginBottom: "25px" }}>
-          <button className="new_task_btn">
-            <BsPlus className="plus" />
-            Add new task
-          </button>
+          <NavLink to="/add-new-task">
+            <button className="new_task_btn">
+              <BsPlus className="plus" />
+              Add new task
+            </button>
+          </NavLink>
         </div>
       </div>
       <FooterComponent />
