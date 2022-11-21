@@ -17,7 +17,7 @@ export const TimerMainPage = () => {
           icon={<AiOutlineCloseCircle className="close_icon" />}
         />
         <TimerComponent />
-        <FooterComponent />
+        <div className="first_footer">{/* <FooterComponent /> */}</div>
       </div>
     </div>
   );
