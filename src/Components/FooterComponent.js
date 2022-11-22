@@ -7,12 +7,26 @@ export const FooterComponent = () => {
   return (
     <div id="header-content" className="footer">
       <div>
-        <NavLink to="/">
+        <NavLink
+          to="/"
+          style={({ isActive }) => {
+            return {
+              color: isActive ? "#6b7aff" : "#5f5f5f",
+            };
+          }}
+        >
           <RiTimerLine />
         </NavLink>
       </div>
       <div>
-        <NavLink to="/listBar">
+        <NavLink
+          to="/listBar"
+          style={({ isActive }) => {
+            return {
+              color: isActive ? "#6b7aff" : "#5f5f5f",
+            };
+          }}
+        >
           <BsListTask />
         </NavLink>
       </div>
