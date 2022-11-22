@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import sound from "../Audio/clock sound.wav";
+import sound from "../Audio/round-start.mp3";
 
 export const ProgressMove = () => {
   const [second, setSecond] = useState(0);
@@ -20,32 +20,43 @@ export const ProgressMove = () => {
         }
         setSecond(second + 1);
         if (second === 59) {
-          setMinutes(minutes + 1);
+          setStartTimer(false);
           setSecond(0);
+          clearInterval(timerId);
+          setStart(false);
         }
       }, 1000);
       return () => clearInterval(timerId);
     }
   });
-  if (second === 1) {
-    new Audio(sound).play();
-  }
-  if (second === 57) {
-    new Audio(sound).play();
-  }
+  const toggleBtn = () => {
+    setStart(!start);
+    setStartTimer(!startTimer);
+    if (second === 1) {
+      const soundStop = setInterval(() => {
+        new Audio(sound).play();
+      }, 1000);
+      setTimeout(() => {
+        clearInterval(soundStop);
+      }, 3000);
+    }
+    if (second === 57) {
+      const soundStop = setInterval(() => {
+        new Audio(sound).play();
+      }, 1000);
+      setTimeout(() => {
+        clearInterval(soundStop);
+      }, 3000);
+    }
+  };
   const stop = () => {
     setMinutes(0);
     setSecond(0);
     setStartTimer(false);
+    setStart(false);
   };
-  const toggleBtn = () => {
-    setStart(!start);
-    setStartTimer(!startTimer);
-    new Audio().pause();
-  };
-
   return (
-    <div>
+    <div className="responsive_container">
       <div className="outer_boder_bar">
         <div className="circuler_progress_bar">
           <span className="progress_value">
@@ -59,7 +70,7 @@ export const ProgressMove = () => {
           Stop
         </button>
         <button className="pause_btn" onClick={() => toggleBtn()}>
-          {start ? "Start" : "pause"}
+          {start ? "Pause" : "Start"}
         </button>
       </div>
     </div>

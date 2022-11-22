@@ -5,7 +5,7 @@ import { FaUserAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 export const FooterComponent = () => {
   return (
-    <div id="header-content" className="footer">
+    <div id="header-content" className="footer responsive_container">
       <div>
         <NavLink
           to="/"

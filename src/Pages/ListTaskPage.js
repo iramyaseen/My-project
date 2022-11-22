@@ -6,12 +6,11 @@ import { FooterComponent } from "../Components/FooterComponent";
 import { ComponentsSilder } from "../Components/ComponentsSlider";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
-// import { BsCheckCircle } from "react-icons/bs";
 export const ListTaskPage = () => {
   return (
     <div className="container">
       <ComponentsSilder />
-      <div>
+      <div className="responsive_container main_container">
         <h2>All Tasks</h2>
         <BarComponents
           className="bar_component"
@@ -61,10 +60,10 @@ export const ListTaskPage = () => {
         />
         <div style={{ marginTop: "25px", marginBottom: "25px" }}>
           <NavLink to="/add-new-task">
-            <button className="new_task_btn">
+            <div className="new_task_btn">
               <BsPlus className="plus" />
               Add new task
-            </button>
+            </div>
           </NavLink>
         </div>
       </div>

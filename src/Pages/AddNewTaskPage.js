@@ -1,5 +1,4 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import { changeActiveButton } from "../Components/Buttom";
 import { FooterComponent } from "../Components/FooterComponent";
 export const AddNewTaskPage = () => {
