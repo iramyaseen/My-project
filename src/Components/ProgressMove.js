@@ -4,41 +4,44 @@ import sound from "../Audio/clock sound.wav";
 export const ProgressMove = () => {
   const [second, setSecond] = useState(0);
   const [minutes, setMinutes] = useState(0);
-  var timer;
+  const [startTimer, setStartTimer] = useState(false);
+  const [start, setStart] = useState(false);
+
   useEffect(() => {
     document.querySelector(
       ".circuler_progress_bar"
     ).style.background = `conic-gradient(#6d7aff ${second * 5}deg, #393939 ${
       second * 6
     }deg)`;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    timer = setInterval(() => {
-      if (second === minutes) {
-        clearInterval(timer);
-      }
-      setSecond(second + 1);
-      if (second === 59) {
-        setMinutes(minutes + 1);
-        setSecond(0);
-      }
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [second]);
-
+    if (startTimer) {
+      const timerId = setInterval(() => {
+        if (second === minutes) {
+          clearInterval(timerId);
+        }
+        setSecond(second + 1);
+        if (second === 59) {
+          setMinutes(minutes + 1);
+          setSecond(0);
+        }
+      }, 1000);
+      return () => clearInterval(timerId);
+    }
+  });
   if (second === 1) {
     new Audio(sound).play();
   }
   if (second === 57) {
     new Audio(sound).play();
   }
-
   const stop = () => {
     setMinutes(0);
     setSecond(0);
+    setStartTimer(false);
   };
-  const pause = () => {
-    clearInterval(timer);
+  const toggleBtn = () => {
+    setStart(!start);
+    setStartTimer(!startTimer);
+    new Audio().pause();
   };
 
   return (
@@ -55,8 +58,8 @@ export const ProgressMove = () => {
         <button className="stop_btn" onClick={stop}>
           Stop
         </button>
-        <button className="pause_btn" onClick={pause}>
-          Pause
+        <button className="pause_btn" onClick={() => toggleBtn()}>
+          {start ? "Start" : "pause"}
         </button>
       </div>
     </div>
