@@ -24,14 +24,15 @@ export const ProgressMove = () => {
           setSecond(0);
           clearInterval(timerId);
           setStart(false);
+          setIsPlaying(false);
         }
-        var myAudio = document.getElementById("myAudio");
-        isPlaying ? myAudio.play() : console.log("sound end");
       }, 1000);
-      if (second == 3) {
+      var myAudio = document.getElementById("myAudio");
+      isPlaying ? myAudio.play() : console.log("sound end");
+      if (second === 4) {
         setIsPlaying(false);
       }
-      if (second == 56) {
+      if (second === 56) {
         setIsPlaying(true);
       }
       return () => clearInterval(timerId);
