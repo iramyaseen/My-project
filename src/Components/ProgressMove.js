@@ -32,12 +32,12 @@ export const ProgressMove = () => {
       if (second === 4) {
         setIsPlaying(false);
       }
-      if (second === 56) {
+      if (second === 55) {
         setIsPlaying(true);
       }
       return () => clearInterval(timerId);
     }
-  });
+  }, [second, startTimer, isPlaying, minutes]);
   const toggleBtn = () => {
     setStart(!start);
     setStartTimer(!startTimer);
