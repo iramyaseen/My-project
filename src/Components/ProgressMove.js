@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import sound from "../Audio/round-start.mp3";
-
 export const ProgressMove = () => {
   const [second, setSecond] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [startTimer, setStartTimer] = useState(false);
   const [start, setStart] = useState(false);
-
+  const [isPlaying, setIsPlaying] = useState(false);
+  var name = new Audio(sound);
   useEffect(() => {
     document.querySelector(
       ".circuler_progress_bar"
@@ -25,35 +25,29 @@ export const ProgressMove = () => {
           clearInterval(timerId);
           setStart(false);
         }
+        var myAudio = document.getElementById("myAudio");
+        isPlaying ? myAudio.play() : console.log("sound end");
       }, 1000);
+      if (second == 3) {
+        setIsPlaying(false);
+      }
+      if (second == 56) {
+        setIsPlaying(true);
+      }
       return () => clearInterval(timerId);
     }
   });
   const toggleBtn = () => {
     setStart(!start);
     setStartTimer(!startTimer);
-    if (second === 1) {
-      const soundStop = setInterval(() => {
-        new Audio(sound).play();
-      }, 1000);
-      setTimeout(() => {
-        clearInterval(soundStop);
-      }, 3000);
-    }
-    if (second === 57) {
-      const soundStop = setInterval(() => {
-        new Audio(sound).play();
-      }, 1000);
-      setTimeout(() => {
-        clearInterval(soundStop);
-      }, 3000);
-    }
+    setIsPlaying(!isPlaying);
   };
   const stop = () => {
     setMinutes(0);
     setSecond(0);
     setStartTimer(false);
     setStart(false);
+    name.pause();
   };
   return (
     <div className="responsive_container">
@@ -66,6 +60,7 @@ export const ProgressMove = () => {
         </div>
       </div>
       <div className="buttons">
+        <audio id="myAudio" src={sound} preload="auto"></audio>
         <button className="stop_btn" onClick={stop}>
           Stop
         </button>
