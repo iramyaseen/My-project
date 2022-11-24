@@ -26,10 +26,10 @@ export const ProgressMove = () => {
           setStart(false);
           setIsPlaying(false);
         }
-      }, 1000);
+      }, 1800);
       var myAudio = document.getElementById("myAudio");
       isPlaying ? myAudio.play() : console.log("sound end");
-      if (second === 4) {
+      if (second === 3) {
         setIsPlaying(false);
       }
       if (second === 55) {
