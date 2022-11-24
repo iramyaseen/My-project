@@ -26,18 +26,18 @@ export const ProgressMove = () => {
           setStart(false);
           setIsPlaying(false);
         }
-      }, 1400);
-      var myAudio = document.getElementById("myAudio");
-      isPlaying ? myAudio.play() : console.log("sound end");
-      if (second === 1) {
-        setIsPlaying(true);
-      }
+      }, 1000);
       if (second === 3) {
         setIsPlaying(false);
       }
-      if (second === 55) {
+      if (second === 56) {
         setIsPlaying(true);
       }
+      const intervel = setInterval(() => {
+        var myAudio = document.getElementById("myAudio");
+        isPlaying ? myAudio.play() : console.log("sound end");
+        return () => clearInterval(intervel);
+      }, 700);
       return () => clearInterval(timerId);
     }
   }, [second, startTimer, isPlaying, minutes]);
