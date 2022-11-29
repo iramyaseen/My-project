@@ -3,7 +3,7 @@ import { RiTimerLine, RiPieChart2Fill } from "react-icons/ri";
 import { BsListTask } from "react-icons/bs";
 import { FaUserAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-export const FooterComponent = () => {
+export const FooterComponent = ({ name }) => {
   return (
     <div id="header-content" className="footer responsive_container">
       <div>
@@ -27,6 +27,7 @@ export const FooterComponent = () => {
             };
           }}
         >
+          {name}
           <BsListTask />
         </NavLink>
       </div>

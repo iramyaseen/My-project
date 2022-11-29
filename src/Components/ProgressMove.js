@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import sound from "../Audio/round-start.mp3";
 export const ProgressMove = () => {
-  const [second, setSecond] = useState(0);
-  const [minutes, setMinutes] = useState(0);
+  const [second, setSecond] = useState(59);
+  const [minutes, setMinutes] = useState(1);
   const [startTimer, setStartTimer] = useState(false);
   const [start, setStart] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -18,43 +18,63 @@ export const ProgressMove = () => {
         if (second === minutes) {
           clearInterval(timerId);
         }
-        setSecond(second + 1);
-        if (second === 59) {
-          setStartTimer(false);
-          setSecond(0);
+        setSecond(second - 1);
+        if (second === 0) {
+          setStartTimer(true);
+          setSecond(59);
+          setMinutes(minutes - 1);
           clearInterval(timerId);
-          setStart(false);
+          setStart(true);
           setIsPlaying(false);
         }
       }, 1000);
-      if (second === 3) {
-        setIsPlaying(false);
+      if (minutes === 0) {
+        if (second === 3) {
+          setIsPlaying(true);
+        }
+        if (second === 0) {
+          setMinutes(1);
+          setSecond(59);
+          setStart(false);
+          setStartTimer(false);
+          setIsPlaying(false);
+        }
       }
-      if (second === 56) {
-        setIsPlaying(true);
-      }
-      const intervel = setInterval(() => {
-        var myAudio = document.getElementById("myAudio");
-        isPlaying ? myAudio.play() : console.log("sound end");
-        return () => clearInterval(intervel);
-      }, 700);
       return () => clearInterval(timerId);
     }
   }, [second, startTimer, isPlaying, minutes]);
+  useEffect(() => {
+    let myAudio = document.getElementById("myAudio");
+    if (isPlaying) {
+      const intervel = setInterval(() => {
+        isPlaying ? myAudio.play() : console.log("sound end");
+      }, 600);
+      return () => clearInterval(intervel);
+    }
+  }, [isPlaying]);
   const toggleBtn = () => {
     setStart(!start);
     setStartTimer(!startTimer);
-    setIsPlaying(!isPlaying);
   };
   const stop = () => {
-    setMinutes(0);
-    setSecond(0);
+    setMinutes(1);
+    setSecond(59);
     setStartTimer(false);
     setStart(false);
     name.pause();
   };
+  const increase = () => {
+    // setSecond(second + 30);
+  };
+  const decrease = () => {};
   return (
     <div className="responsive_container">
+      <button className="stop_btn" onClick={increase}>
+        Increase
+      </button>
+      <button className="pause_btn" onClick={decrease}>
+        decrease
+      </button>
       <div className="outer_boder_bar">
         <div className="circuler_progress_bar">
           <span className="progress_value">
