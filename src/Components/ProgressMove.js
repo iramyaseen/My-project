@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import sound from "../Audio/round-start.mp3";
 export const ProgressMove = () => {
-  const [second, setSecond] = useState(59);
-  const [minutes, setMinutes] = useState(1);
+  const [second, setSecond] = useState(0);
+  const [minutes, setMinutes] = useState(2);
   const [startTimer, setStartTimer] = useState(false);
   const [start, setStart] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -28,13 +28,14 @@ export const ProgressMove = () => {
           setIsPlaying(false);
         }
       }, 1000);
+
       if (minutes === 0) {
-        if (second === 3) {
+        if (second === 4) {
           setIsPlaying(true);
         }
         if (second === 0) {
           setMinutes(1);
-          setSecond(59);
+          setSecond(60);
           setStart(false);
           setStartTimer(false);
           setIsPlaying(false);
@@ -55,26 +56,44 @@ export const ProgressMove = () => {
   const toggleBtn = () => {
     setStart(!start);
     setStartTimer(!startTimer);
+    setIsPlaying(false);
+    document.getElementById("stop_btn");
   };
   const stop = () => {
-    setMinutes(1);
-    setSecond(59);
+    setMinutes(0);
+    setSecond(0);
     setStartTimer(false);
     setStart(false);
     name.pause();
   };
   const increase = () => {
-    // setSecond(second + 30);
+    if (second !== 60) {
+      setSecond(second + 30);
+    } else {
+      if (minutes) {
+        setMinutes(minutes + 1);
+        setSecond(0);
+      }
+    }
   };
-  const decrease = () => {};
+  const decrease = () => {
+    if (second) {
+      setSecond(second - 30);
+    } else if (minutes) {
+      setMinutes(minutes - 1);
+      setSecond(second + 30);
+    }
+  };
   return (
     <div className="responsive_container">
-      <button className="stop_btn" onClick={increase}>
-        Increase
-      </button>
-      <button className="pause_btn" onClick={decrease}>
-        decrease
-      </button>
+      <div className="buttons">
+        <button className="stop_btn" id="stop_btn" onClick={increase}>
+          Increase
+        </button>
+        <button className="pause_btn" id="stop_btn" onClick={decrease}>
+          decrease
+        </button>
+      </div>
       <div className="outer_boder_bar">
         <div className="circuler_progress_bar">
           <span className="progress_value">

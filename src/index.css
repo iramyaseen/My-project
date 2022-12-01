@@ -290,6 +290,9 @@ body {
   justify-content: center;
   align-items: center;
 }
+.mystyle:disabled {
+  background-color: red;
+}
 .circuler_progress_bar::before {
   content: "";
   position: absolute;
