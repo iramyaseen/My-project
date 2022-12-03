@@ -283,7 +283,11 @@ body {
   position: relative;
   height: 235px;
   width: 235px;
-  background: conic-gradient(#6d7aff 29.4deg, #393939 100deg);
+  background: conic-gradient(
+    #6d7aff 29.4deg,
+    #393939 100deg,
+    rgb(128, 128, 233) 4deg
+  );
   border-radius: 50%;
   padding: 20px;
   display: flex;
@@ -367,4 +371,51 @@ body {
     padding-left: 0%;
     padding-right: 0%;
   }
+}
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  border: none;
+  padding: 13px 40px;
+  font-size: 16px;
+  border-radius: 5px;
+  color: white;
+  background-color: #373a4d;
+}
+.disabled_change_color {
+  margin-left: 10px;
+  background-color: #6d7bfe;
+  opacity: 0.6;
+  cursor: not-allowed;
+  border: none;
+  padding: 13px 40px;
+  font-size: 16px;
+  border-radius: 5px;
+  color: white;
+}
+
+.disabled2 {
+  margin-left: 10px;
+  background-color: #6d7bfe;
+  opacity: 0.6;
+  cursor: not-allowed;
+  border: none;
+  padding: 13px 40px;
+  font-size: 16px;
+  border-radius: 5px;
+  color: white;
+}
+.disabledStop {
+  margin-left: 10px;
+  background-color: #373a4d;
+  opacity: 0.6;
+  cursor: not-allowed;
+  border: none;
+  padding: 13px 40px;
+  font-size: 16px;
+  border-radius: 5px;
+  color: white;
+}
+.changeColor {
+  background-color: #373a4d;
 }

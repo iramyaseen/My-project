@@ -2,18 +2,21 @@ import React, { useEffect, useState } from "react";
 import sound from "../Audio/round-start.mp3";
 export const ProgressMove = () => {
   const [second, setSecond] = useState(0);
-  const [minutes, setMinutes] = useState(2);
+  const [minutes, setMinutes] = useState(0);
   const [startTimer, setStartTimer] = useState(false);
   const [start, setStart] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [btnstart, setbtnstart] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   var name = new Audio(sound);
   useEffect(() => {
     document.querySelector(
       ".circuler_progress_bar"
-    ).style.background = `conic-gradient(#6d7aff ${second * 5}deg, #393939 ${
-      second * 6
-    }deg)`;
+    ).style.background = `conic-gradient(#6d7aff ${minutes * 6}deg, #393939 ${
+      minutes * 6
+    }deg,  rgb(128, 128, 233) ${second * 7}deg)`;
     if (startTimer) {
+      setbtnstart(true);
       const timerId = setInterval(() => {
         if (second === minutes) {
           clearInterval(timerId);
@@ -21,7 +24,7 @@ export const ProgressMove = () => {
         setSecond(second - 1);
         if (second === 0) {
           setStartTimer(true);
-          setSecond(59);
+          setSecond(60);
           setMinutes(minutes - 1);
           clearInterval(timerId);
           setStart(true);
@@ -30,12 +33,14 @@ export const ProgressMove = () => {
       }, 1000);
 
       if (minutes === 0) {
-        if (second === 4) {
+        setbtnstart(false);
+
+        if (second <= 4) {
           setIsPlaying(true);
         }
         if (second === 0) {
-          setMinutes(1);
-          setSecond(60);
+          setMinutes(0);
+          setSecond(0);
           setStart(false);
           setStartTimer(false);
           setIsPlaying(false);
@@ -43,7 +48,14 @@ export const ProgressMove = () => {
       }
       return () => clearInterval(timerId);
     }
+    console.log("okkk", second, minutes);
+    if (second === 0) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
   }, [second, startTimer, isPlaying, minutes]);
+
   useEffect(() => {
     let myAudio = document.getElementById("myAudio");
     if (isPlaying) {
@@ -53,13 +65,14 @@ export const ProgressMove = () => {
       return () => clearInterval(intervel);
     }
   }, [isPlaying]);
+
   const toggleBtn = () => {
     setStart(!start);
     setStartTimer(!startTimer);
     setIsPlaying(false);
-    document.getElementById("stop_btn");
   };
   const stop = () => {
+    setbtnstart(false);
     setMinutes(0);
     setSecond(0);
     setStartTimer(false);
@@ -70,10 +83,8 @@ export const ProgressMove = () => {
     if (second !== 60) {
       setSecond(second + 30);
     } else {
-      if (minutes) {
-        setMinutes(minutes + 1);
-        setSecond(0);
-      }
+      setMinutes(minutes + 1);
+      setSecond(second - 30);
     }
   };
   const decrease = () => {
@@ -87,10 +98,18 @@ export const ProgressMove = () => {
   return (
     <div className="responsive_container">
       <div className="buttons">
-        <button className="stop_btn" id="stop_btn" onClick={increase}>
+        <button
+          className={btnstart ? "disabled" : "stop_btn"}
+          disabled={btnstart}
+          onClick={increase}
+        >
           Increase
         </button>
-        <button className="pause_btn" id="stop_btn" onClick={decrease}>
+        <button
+          className={btnstart ? "disabled_change_color" : "pause_btn"}
+          disabled={btnstart}
+          onClick={decrease}
+        >
           decrease
         </button>
       </div>
@@ -104,10 +123,18 @@ export const ProgressMove = () => {
       </div>
       <div className="buttons">
         <audio id="myAudio" src={sound} preload="auto"></audio>
-        <button className="stop_btn" onClick={stop}>
+        <button
+          className={disabled ? "disabledStop" : "pause_btn changeColor"}
+          disabled={disabled}
+          onClick={stop}
+        >
           Stop
         </button>
-        <button className="pause_btn" onClick={() => toggleBtn()}>
+        <button
+          className={disabled ? "disabled2" : "pause_btn"}
+          disabled={disabled}
+          onClick={() => toggleBtn()}
+        >
           {start ? "Pause" : "Start"}
         </button>
       </div>
