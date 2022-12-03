@@ -14,7 +14,7 @@ export const ProgressMove = () => {
       ".circuler_progress_bar"
     ).style.background = `conic-gradient(#6d7aff ${minutes * 6}deg, #393939 ${
       minutes * 6
-    }deg,  rgb(128, 128, 233) ${second * 7}deg)`;
+    }deg,  rgb(128, 128, 233) ${second * 6}deg)`;
     if (startTimer) {
       setbtnstart(true);
       const timerId = setInterval(() => {
@@ -31,7 +31,14 @@ export const ProgressMove = () => {
           setIsPlaying(false);
         }
       }, 1000);
-
+      // eslint-disable-next-line no-self-compare
+      if (minutes === minutes) {
+        if (second === 60) {
+          setIsPlaying(true);
+        } else if (second === 57) {
+          setIsPlaying(false);
+        }
+      }
       if (minutes === 0) {
         setbtnstart(false);
 
@@ -48,7 +55,6 @@ export const ProgressMove = () => {
       }
       return () => clearInterval(timerId);
     }
-    console.log("okkk", second, minutes);
     if (second === 0) {
       setDisabled(true);
     } else {
@@ -70,6 +76,7 @@ export const ProgressMove = () => {
     setStart(!start);
     setStartTimer(!startTimer);
     setIsPlaying(false);
+    setbtnstart(true);
   };
   const stop = () => {
     setbtnstart(false);
